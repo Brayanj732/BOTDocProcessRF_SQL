@@ -7,7 +7,7 @@
   <VisualBasic.Settings>
     <x:Null />
   </VisualBasic.Settings>
-  <sap:VirtualizedContainerService.HintSize>1234,2279</sap:VirtualizedContainerService.HintSize>
+  <sap:VirtualizedContainerService.HintSize>1234,2463</sap:VirtualizedContainerService.HintSize>
   <sap2010:WorkflowViewState.IdRef>GetAllSettings_1</sap2010:WorkflowViewState.IdRef>
   <TextExpression.NamespacesForImplementation>
     <sco:Collection x:TypeArguments="x:String">
@@ -108,11 +108,11 @@
       <AssemblyReference>UiPath.System.Activities.ViewModels</AssemblyReference>
     </scg:List>
   </TextExpression.ReferencesForImplementation>
-  <Sequence sap2010:Annotation.AnnotationText="Initialize, populate and output a configuration Dictionary to be used throughout the project. &#xA;Settings and constants are read from the local configuration file, and assets are fetched from Orchestrator. &#xA;Asset values overwrite settings and constant values if they are defined with the same name." DisplayName="Initialize All Settings" sap:VirtualizedContainerService.HintSize="564,2214" sap2010:WorkflowViewState.IdRef="Sequence_2">
+  <Sequence sap2010:Annotation.AnnotationText="Initialize, populate and output a configuration Dictionary to be used throughout the project. &#xA;Settings and constants are read from the local configuration file, and assets are fetched from Orchestrator. &#xA;Asset values overwrite settings and constant values if they are defined with the same name." DisplayName="Initialize All Settings" sap:VirtualizedContainerService.HintSize="564,2398" sap2010:WorkflowViewState.IdRef="Sequence_2">
     <Sequence.Variables>
-      <Variable x:TypeArguments="x:String" Name="ConnectionString" />
+      <Variable x:TypeArguments="x:String" Name="vStrConnectionString" />
       <Variable x:TypeArguments="sd:DataTable" Name="Dt_SettingsAndAssets" />
-      <Variable x:TypeArguments="x:String" Name="NameConfigFile" />
+      <Variable x:TypeArguments="x:String" Name="vStrNameConfig" />
     </Sequence.Variables>
     <sap:WorkflowViewStateService.ViewState>
       <scg:Dictionary x:TypeArguments="x:String, x:Object">
@@ -129,25 +129,40 @@
         <InArgument x:TypeArguments="scg:Dictionary(x:String, x:Object)">[New Dictionary(of String, Object)]</InArgument>
       </Assign.Value>
     </Assign>
-    <ui:GetRobotAsset TimeoutMS="{x:Null}" AssetName="ConnectionString" CacheStrategy="None" DisplayName="Get Asset ConnectionString" sap:VirtualizedContainerService.HintSize="502,143" sap2010:WorkflowViewState.IdRef="GetRobotAsset_6">
+    <ui:GetRobotAsset TimeoutMS="{x:Null}" sap2010:Annotation.AnnotationText="Obtain Connection String from orchestrator&#xD;&#xA;" AssetName="ConnectionString" CacheStrategy="None" DisplayName="Get Asset ConnectionString" sap:VirtualizedContainerService.HintSize="502,185" sap2010:WorkflowViewState.IdRef="GetRobotAsset_6">
       <ui:GetRobotAsset.Value>
-        <OutArgument x:TypeArguments="x:String">[ConnectionString]</OutArgument>
+        <OutArgument x:TypeArguments="x:String">[vStrConnectionString]</OutArgument>
       </ui:GetRobotAsset.Value>
+      <sap:WorkflowViewStateService.ViewState>
+        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+          <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+        </scg:Dictionary>
+      </sap:WorkflowViewStateService.ViewState>
     </ui:GetRobotAsset>
-    <Assign DisplayName="Name Table Config DataBase" sap:VirtualizedContainerService.HintSize="502,82" sap2010:WorkflowViewState.IdRef="Assign_25">
+    <Assign sap2010:Annotation.AnnotationText="Name of table's database assigned" DisplayName="Name Table Config DataBase" sap:VirtualizedContainerService.HintSize="502,113" sap2010:WorkflowViewState.IdRef="Assign_25">
       <Assign.To>
-        <OutArgument x:TypeArguments="x:String">[NameConfigFile]</OutArgument>
+        <OutArgument x:TypeArguments="x:String">[vStrNameConfig]</OutArgument>
       </Assign.To>
       <Assign.Value>
         <InArgument x:TypeArguments="x:String">["ConfigDispatcherDocProcessRF_SQL_Bot"]</InArgument>
       </Assign.Value>
+      <sap:WorkflowViewStateService.ViewState>
+        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+          <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+        </scg:Dictionary>
+      </sap:WorkflowViewStateService.ViewState>
     </Assign>
-    <ui:ExecuteQuery ContinueOnError="{x:Null}" ExistingDbConnection="{x:Null}" TimeoutMS="{x:Null}" CommandType="Text" ConnectionString="[ConnectionString]" DataTable="[Dt_SettingsAndAssets]" DisplayName="Read Config DataBase" sap:VirtualizedContainerService.HintSize="502,89" sap2010:WorkflowViewState.IdRef="ExecuteQuery_1" ProviderName="Microsoft.Data.SqlClient" Sql="[&quot;Select Name,Value From &quot;+NameConfigFile+&quot;&quot;]">
+    <ui:ExecuteQuery ContinueOnError="{x:Null}" ExistingDbConnection="{x:Null}" TimeoutMS="{x:Null}" CommandType="Text" ConnectionString="[vStrConnectionString]" DataTable="[Dt_SettingsAndAssets]" DisplayName="Read Config DataBase" sap:VirtualizedContainerService.HintSize="502,89" sap2010:WorkflowViewState.IdRef="ExecuteQuery_1" ProviderName="Microsoft.Data.SqlClient" Sql="[&quot;Select Name,Value From &quot;+vStrNameConfig+&quot;&quot;]">
       <ui:ExecuteQuery.Parameters>
         <scg:Dictionary x:TypeArguments="x:String, Argument" />
       </ui:ExecuteQuery.Parameters>
     </ui:ExecuteQuery>
-    <If Condition="[Dt_SettingsAndAssets.Rows.Count&lt;1]" DisplayName="If DataBase Table is empty" sap:VirtualizedContainerService.HintSize="502,512" sap2010:WorkflowViewState.IdRef="If_7">
+    <If sap2010:Annotation.AnnotationText="If datatable is empty load configuration to table's database" Condition="[Dt_SettingsAndAssets.Rows.Count&lt;1]" DisplayName="If DataBase Table is empty" sap:VirtualizedContainerService.HintSize="502,623" sap2010:WorkflowViewState.IdRef="If_7">
+      <sap:WorkflowViewStateService.ViewState>
+        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+          <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+        </scg:Dictionary>
+      </sap:WorkflowViewStateService.ViewState>
       <If.Then>
         <Sequence sap:VirtualizedContainerService.HintSize="376,330" sap2010:WorkflowViewState.IdRef="Sequence_16">
           <sap:WorkflowViewStateService.ViewState>
@@ -160,7 +175,7 @@
               <scg:Dictionary x:TypeArguments="x:String, Argument" />
             </ui:InvokeWorkflowFile.Arguments>
           </ui:InvokeWorkflowFile>
-          <ui:ExecuteQuery ContinueOnError="{x:Null}" ExistingDbConnection="{x:Null}" TimeoutMS="{x:Null}" CommandType="Text" ConnectionString="[ConnectionString]" DataTable="[Dt_SettingsAndAssets]" DisplayName="Read Config DataBase" sap:VirtualizedContainerService.HintSize="334,89" sap2010:WorkflowViewState.IdRef="ExecuteQuery_2" ProviderName="Microsoft.Data.SqlClient" Sql="[&quot;Select Name,Value From &quot;+NameConfigFile+&quot;&quot;]">
+          <ui:ExecuteQuery ContinueOnError="{x:Null}" ExistingDbConnection="{x:Null}" TimeoutMS="{x:Null}" CommandType="Text" ConnectionString="[vStrConnectionString]" DataTable="[Dt_SettingsAndAssets]" DisplayName="Read Config DataBase" sap:VirtualizedContainerService.HintSize="334,89" sap2010:WorkflowViewState.IdRef="ExecuteQuery_2" ProviderName="Microsoft.Data.SqlClient" Sql="[&quot;Select Name,Value From &quot;+vStrNameConfig+&quot;&quot;]">
             <ui:ExecuteQuery.Parameters>
               <scg:Dictionary x:TypeArguments="x:String, Argument" />
             </ui:ExecuteQuery.Parameters>
@@ -168,7 +183,13 @@
         </Sequence>
       </If.Then>
       <If.Else>
-        <Sequence sap2010:WorkflowViewState.IdRef="Sequence_17" />
+        <Sequence sap:VirtualizedContainerService.HintSize="300,80" sap2010:WorkflowViewState.IdRef="Sequence_17">
+          <sap:WorkflowViewStateService.ViewState>
+            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+              <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            </scg:Dictionary>
+          </sap:WorkflowViewStateService.ViewState>
+        </Sequence>
       </If.Else>
     </If>
     <ui:ForEachRow ColumnNames="{x:Null}" CurrentIndex="{x:Null}" DataTable="[Dt_SettingsAndAssets]" DisplayName="For each configuration row" sap:VirtualizedContainerService.HintSize="502,561" sap2010:WorkflowViewState.IdRef="ForEachRow_4">

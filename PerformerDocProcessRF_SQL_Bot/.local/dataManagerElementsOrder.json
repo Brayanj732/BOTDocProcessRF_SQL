@@ -77,9 +77,9 @@
       "Path": "Framework/00_ReadConfigFile.xaml",
       "SortBy": 0,
       "VariablesSectionElementsOrder": [
-        "configDT&Sequence_2",
-        "configDT&Sequence_3",
-        "NameConfigFile&Sequence_3"
+        "vDtbConfig&Sequence_3",
+        "vStrNameConfig&Sequence_3",
+        "configDT&Sequence_2"
       ],
       "ArgumentsSectionElementsOrder": [
         "io_ProviderName",

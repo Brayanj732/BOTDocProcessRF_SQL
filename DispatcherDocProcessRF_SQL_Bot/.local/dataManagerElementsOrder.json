@@ -12,10 +12,10 @@
       "Path": "Framework/Process.xaml",
       "SortBy": 0,
       "VariablesSectionElementsOrder": [
+        "vStrPdfFiles&Sequence_1",
+        "vListMailsObtained&Sequence_1",
         "PathFilesInput&Sequence_3",
-        "strPdfFiles&Sequence_1",
-        "PdfExist&Sequence_3",
-        "MailsObtained&Sequence_1"
+        "PdfExist&Sequence_3"
       ],
       "ArgumentsSectionElementsOrder": [
         "in_TransactionItem",
@@ -52,9 +52,9 @@
       "Path": "Framework/InitAllSettings.xaml",
       "SortBy": 0,
       "VariablesSectionElementsOrder": [
-        "ConnectionString&Sequence_2",
-        "Dt_SettingsAndAssets&Sequence_2",
-        "NameConfigFile&Sequence_2"
+        "vStrNameConfig&Sequence_2",
+        "vStrConnectionString&Sequence_2",
+        "Dt_SettingsAndAssets&Sequence_2"
       ],
       "ArgumentsSectionElementsOrder": [
         "in_ConfigFile",
